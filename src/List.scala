@@ -59,10 +59,40 @@ object List {
 
   }
   //EXERCISE 3.6 - droping last element of list
-  def init[A](ls:List[A]):List[A] =
+  def init[A](ls:List[A]):List[A] = ls match {
+    case Cons(_,Nil) => Nil
+    case Cons(x,xs) => Cons(x,init(xs))
+  }
 
 
+  def foldRight[A,B](ls:List[A],z:B)(f:(A,B) => B) :B =
+    ls match {
+      case Nil => z
+      case Cons(x,xs) => f(x,foldRight(xs,z)(f))
+    }
 
+  def sum2(ls:List[Int]):Int =
+    foldRight(ls,0)(_+_)
+  //EXERCISE 3.9 - length of list by foldright
+  def length[A](ls:List[A]):Int =
+    foldRight(ls,0)((_,y)=>y+1)
+  //EXERCISE 3.10 - tail recursive fold left
+  @annotation.tailrec
+  def foldLeft[A,B](ls:List[A],z:B)(f:(B,A)=>B):B =
+    ls match {
+      case Nil => z
+      case Cons(x,xs) => foldLeft(xs,f(z,x))(f)
+
+    }
+
+  def sum3(ls:List[Int]):Int =.13
+    foldLeft(ls,0)(_+_)
+
+  def product3(ls:List[Int]):Int =
+    foldLeft(ls,1)(_*_)
+
+  def reverse[A](ls:List[A]):List[A] =
+    foldLeft(ls,List[A]())((acc,h)=>Cons(h,acc))
 
 
 }

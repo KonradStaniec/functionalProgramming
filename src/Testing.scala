@@ -6,9 +6,10 @@ import fpinscala.datastructures.{List,Cons,Nil}
 
 object Testing {
   def main(args: Array[String]) {
-    val testList:List[Double] = List(2,2,3,4,5,6,7,8,9)
+    val testList:List[Int] = List(1,2,3,4,5)
 
-    println(List.dropWhile(testList,(x:Double)=>x%2==0))
+
+    println(List.reverse(testList))
 
   }
 }
